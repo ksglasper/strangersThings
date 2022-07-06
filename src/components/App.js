@@ -7,7 +7,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { fectchAllPosts } from "../api";
-import { Posts } from "./";
+import { Posts, Header } from "./";
 
 const App = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -24,6 +24,7 @@ const App = () => {
 
   return (
     <>
+    <Header />
       <div>Hello, World!</div>
       <Posts allPosts={allPosts} />
     </>
