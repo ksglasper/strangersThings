@@ -10,7 +10,7 @@ const Posts = ({allPosts}) => {
         ? allPosts.map((post ,idx) => {
             return (
                 
-                <div key={post.author._id} className="post">
+                <div key={`${idx}-${post.author._id}`} className="post">
                   <h3>{post.title}</h3>
                   <p>Hellooooooo</p>
                   <p>{post.description}</p>
