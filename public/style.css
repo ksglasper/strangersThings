@@ -2,3 +2,41 @@
     border: 2px solid black;
     margin-bottom: 5px;
 }
+
+#userRegistration{
+    display: block;
+    /* border: 2px solid black; */
+}
+
+#registerForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+    /* border: 2px solid black; */
+
+}
+#userInput{
+    display: flex;
+    justify-content: right;
+}
+#navBar{
+    /* border: 2px solid black; */
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.navBar{
+    text-decoration: none;
+
+}
+#inputForm{
+    width: 475px;
+    /* border: 2px solid black; */
+    
+}
+.inputBox{
+    /* border: 2px solid black; */
+    width: 500px;
+}

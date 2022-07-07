@@ -12,7 +12,6 @@ const Posts = ({allPosts}) => {
                 
                 <div key={`${idx}-${post.author._id}`} className="post">
                   <h3>{post.title}</h3>
-                  <p>Hellooooooo</p>
                   <p>{post.description}</p>
                 </div>
               

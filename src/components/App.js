@@ -8,12 +8,15 @@ import {
   Switch,
 } from "react-router-dom";
 import { fectchAllPosts } from "../api";
-import { Posts, Header, Register } from "./";
+import { Posts, Header, Register, LogIn} from "./";
+import { getCurrentUser} from "../auth";
+
+
 
 const App = () => {
   const [allPosts, setAllPosts] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(getCurrentUser());
+  const [userToken, setUserToken] = useState("");
   useEffect(() => {
     fectchAllPosts()
       .then((posts) => {
@@ -28,23 +31,17 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header
-          setCurrentUser={setCurrentUser}
-          currentUser={currentUser}
-          isLoggingIn={isLoggingIn}
-          setIsLoggingIn={setIsLoggingIn}
-        />
+      <Header setCurrentUser={setCurrentUser}
+          currentUser={currentUser} setUserToken={setUserToken}/>
         <Routes>
-
-
-        <Route path={"/register"} element={<Register />}>
-          
-        </Route>
-        </Routes>
-
-        <div>Hello, World!</div>
-        <Posts allPosts={allPosts} />
         
+        <Route exact path={"/"} element={<Posts allPosts={allPosts} />}></Route>
+
+        <Route path={"/register"} element={<Register setCurrentUser={setCurrentUser} setUserToken={setUserToken}/>}></Route>
+        
+
+        
+        </Routes>
       </Router>
     </>
   );

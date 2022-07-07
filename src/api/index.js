@@ -1,6 +1,8 @@
 const BASE_URL = "https://strangers-things.herokuapp.com/api/";
 const cohortName = "2206-FTB-ET-WEB-FT/";
 
+
+
 export const fectchAllPosts = async () => {
   try {
     const response = await fetch(`${BASE_URL + cohortName}posts/`);
@@ -17,7 +19,8 @@ export const fectchAllPosts = async () => {
 
 
 export const registerPerson = async (event) => {
-    fetch(`${BASE_URL + cohortName}/users/register/`, {
+try {
+  const response = await fetch(`${BASE_URL + cohortName}/users/register/`, {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
@@ -27,14 +30,17 @@ export const registerPerson = async (event) => {
       username: `${event.target.username.value}`,
       password: `${event.target.password.value}`
     }
-  })
-}).then(response => response.json())
-  .then(result => {
-    console.log(result);
-  })
-  .catch(console.error);
+  })})
+  
+  const result = await response.json();
+  console.log(result);
+   return result.data.token
 
+} catch (error) {
+  console.error(error)
 }
+}
+
 
 export const logInPerson = async (event) =>{
     fetch(`${BASE_URL + cohortName}/users/login/`, {
@@ -50,7 +56,8 @@ export const logInPerson = async (event) =>{
   })
 }).then(response => response.json())
   .then(result => {
-    console.log(result);
+    console.log(result)
+    
   })
   .catch(console.error);
   
