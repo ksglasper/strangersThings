@@ -18,7 +18,7 @@ const Posts = ({allPosts}) => {
               
             );
           })
-        : null}
+        : <></>}
     </>
   );
 };

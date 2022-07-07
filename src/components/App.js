@@ -11,6 +11,7 @@ import { Posts, Header } from "./";
 
 const App = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     fectchAllPosts()
       .then((posts) => {
@@ -24,7 +25,7 @@ const App = () => {
 
   return (
     <>
-    <Header />
+      <Header setCurrentUser={setCurrentUser} currentUser={currentUser} />
       <div>Hello, World!</div>
       <Posts allPosts={allPosts} />
     </>
