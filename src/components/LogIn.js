@@ -1,36 +1,48 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { storeCurrentUser, storeUserToken } from "../auth";
+import { logInPerson } from "../api";
 
-
-
-const LogIn = ({ currentUser, setCurrentUser, isLoggingIn, setIsLoggingIn }) =>{
-    return(
-        <>
-        <form
-          id="userInput"
-          onSubmit={async (event) => {
-            event.preventDefault();
-            console.log(event.target.username.value);
-            console.log(event.target.password.value);
-            
-    
-    
-          }}
-        >
+const LogIn = ({ currentUser, setCurrentUser, setUserToken }) => {
+    let navigate = useNavigate();
+    function resetForm() {
+        document.getElementById("userInput").reset();
+    }
+  return (
+    <>
+      <form
+        id="userInput"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const result = await logInPerson(event);
+          if (result.success) {
+            const userToken = result.data.token
+            console.log(userToken)
+          setCurrentUser(event.target.username.value);
+          setUserToken(userToken);
+          storeCurrentUser(event.target.username.value);
+          storeUserToken(userToken);
+          navigate("/")
+          console.log(event.target.username.value);
+          console.log(event.target.password.value);
+          } else {
+           alert(result.error.message);
+           resetForm()
+          }
+          
+        }}
+      >
+        <span>
           <label htmlFor="username">Username:</label>
           <input type="text" name="username" placeholder="Username" />
           <label htmlFor="password">Password:</label>
           <input type="text" name="password" placeholder="Password" />
-          <button name="logIn" onClick={() => setIsLoggingIn(true)}>
-            Log In
-          </button>
-          <NavLink to={'/register'} >Don't have a log in? Register here!</NavLink>
-          
-        </form>
-        {currentUser ? <button onClick={handleLogOut()}>Log Out</button> : <></>}
+          <button name="logIn">Log In</button>
+        </span>
+        <NavLink to={"/register"}>Don't have a log in? Register here!</NavLink>
+      </form>
+    </>
+  );
+};
 
-        </>
-    )
-}
-
-export default LogIn
+export default LogIn;

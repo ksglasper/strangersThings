@@ -11,6 +11,11 @@ export function storeCurrentUser(user) {
     // console.log(user, 'JSON')
     return user;
   }
+  export function getCurrentToken() {
+    const user = localStorage.getItem('token');
+    // console.log(user, 'JSON')
+    return user;
+  }
   
   export function clearCurrentUserAndToken() {
     localStorage.removeItem('currentUser');

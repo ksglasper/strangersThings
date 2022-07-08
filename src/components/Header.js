@@ -9,13 +9,14 @@ const Header = ({
   setCurrentUser,
   isLoggingIn,
   setIsLoggingIn,
+  setUserToken
 }) => {
   return (
     <>
     <div id="navBar">
       <NavLink className={'navBar'} to={"/"}>Home</NavLink>
-      <NavLink className={'navBar'} to={"/Profile"}>Profile</NavLink>
-      <NavLink className={'navBar'} to={"/Posts"}>Posts</NavLink>
+      {currentUser ? <NavLink className={'navBar'} to={"/Profile"} >Profile</NavLink> : <NavLink className={'navBar'} to={"/"} onClick={()=>{alert('Please log in to view')}} >Profile</NavLink> }
+      {currentUser ? <NavLink className={'navBar'} to={"/Posts"} >Posts</NavLink> : <NavLink className={'navBar'} to={"/"} onClick={()=>{alert('Please log in to view')}} >Posts</NavLink> }
       {currentUser ? <NavLink className={'navBar'} to={"/"} onClick={()=>{
         clearCurrentUserAndToken()
         setCurrentUser('')
@@ -25,8 +26,7 @@ const Header = ({
       {currentUser ? <></> : <LogIn
         currentUser={currentUser}
         setCurrentUser={setCurrentUser}
-        isLoggingIn={isLoggingIn}
-        setIsLoggingIn={setIsLoggingIn}
+        setUserToken={setUserToken}
       /> }
       
     
