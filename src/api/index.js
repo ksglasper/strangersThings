@@ -30,7 +30,7 @@ export const fetchUserData = async (userToken) =>{
     const result = await response.json();
     console.log(result)
 
-    const userData = [result.data.posts,result.data.messages]
+    const userData = result.data
     
     return userData;
   } catch (error) {
@@ -41,7 +41,7 @@ export const fetchUserData = async (userToken) =>{
 
 export const registerPerson = async (event) => {
 try {
-  const response = await fetch(`${BASE_URL + cohortName}/users/register/`, {
+  const response = await fetch(`${BASE_URL + cohortName}users/register/`, {
   method: "POST",
   headers: {
     'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ try {
 
 export const logInPerson = async (event) =>{
   try {
-    const response = await fetch(`${BASE_URL + cohortName}/users/login/`, {
+    const response = await fetch(`${BASE_URL + cohortName}users/login/`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export const logInPerson = async (event) =>{
 
 export const makePost = async (post, userToken) =>{
   try {
-    const response = await fetch(`${BASE_URL + cohortName}/posts/`, {
+    const response = await fetch(`${BASE_URL + cohortName}posts/`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
@@ -101,7 +101,7 @@ export const makePost = async (post, userToken) =>{
     
     const result = await response.json();
     console.log(result);
-     return result
+     return result.data.post
   
   } catch (error) {
     console.error(error)

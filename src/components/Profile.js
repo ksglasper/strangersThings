@@ -1,87 +1,47 @@
-import React, { useEffect } from "react";
-import { fetchUserData, makePost } from "../api";
+import React, { useEffect, useState } from "react";
+import { fetchUserData, makePost, fectchAllPosts } from "../api";
 
-const Profile = ({ userToken, currentUser, setUserData, userData }) => {
-  // const userData = await fetchUserPosts(userToken)
-  // console.log(userData)
-  // setUserPosts(userData)
+const Profile = ({ userToken, currentUser, setAllPosts }) => {
+  const [userData, setUserData] = useState([]);
+  const [userPosts, setUserPosts] = useState([])
+
   useEffect(() => {
-    fetchUserData(userToken)
-      .then((data) => {
-        console.log(data, "this is the user data");
-        setUserData(data);
-      })
-      .catch((error) => {
-        console.log(error, "Something broke");
-      });
-  }, []);
+    async function getUserData(){
 
-  const [userPosts, userMessages] = userData;
-    console.log(userPosts, 'this is the posts')
-    console.log(userMessages, 'this is the messages')
+    const userInfo = await fetchUserData(userToken)
+        setUserPosts(userInfo.posts)
+    } 
+    getUserData()
+}, []);
+
+function resetForm() {
+    document.getElementById("newPost").reset();
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const location = event.target.location.value;
+    const willDeliver = event.target.willDeliver.value;
+    const postObj = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      price: event.target.price.value,
+      location: location,
+      willDeliver: willDeliver
+    };
+
+    console.log(postObj, "1");
+    const newPost = await makePost(postObj, userToken);
+    setUserPosts([...userPosts,newPost])
+
+    resetForm();
+  };
+
   return (
     <>
       <h1>Hello {currentUser}!</h1>
       <div>
-        <form
-          onSubmit={ async (event) => {
-            event.preventDefault();
-
-            console.log(event.target.willDeliver.value, 'targeting willdeliver')
-            console.log(event.target.location, 'targeting location')
-            console.log(event.target.description, 'targeting description')
-            console.log(event)
-
-            if(event.target.location.value){
-                if(event.target.willDeliver.value === 'optional'){
-                    const postObj = {
-                        title: event.target.title.value,
-                        description: event.target.description.value,
-                        price: event.target.price.value,
-                        location: event.target.location.value
-                    
-                } 
-                console.log(postObj, '1')
-                const newPost = await makePost(postObj, userToken)
-            }else{
-                    const postObj = {
-                        title: event.target.title.value,
-                        description: event.target.description.value,
-                        price: event.target.price.value,
-                        location: event.target.location.value,
-                        willDeliver: Boolean(event.target.willDeliver.value)
-                    }
-                console.log(postObj, '2')
-                const newPost = await makePost(postObj, userToken)
-
-                    
-                }
-            }else if(event.target.willDeliver.value === 'optional'){
-                const postObj = {
-                    title: event.target.title.value,
-                    description: event.target.description.value,
-                    price: event.target.price.value
-                }
-                console.log(postObj, '3')
-                const newPost = await makePost(postObj, userToken)
-
-
-            }else{
-                const postObj = {
-                    title: event.target.title.value,
-                    description: event.target.description.value,
-                    price: event.target.price.value,
-                    willDeliver: Boolean(event.target.willDeliver.value)
-                }
-                console.log(postObj, '4')
-                const newPost = await makePost(postObj, userToken)
-
-
-            }
-            
-            
-          }}
-        >
+        <form id="newPost" onSubmit={handleSubmit}>
           <div id="userPostForm">
             <div>
               <label htmlFor="title">Title:</label>
@@ -125,10 +85,9 @@ const Profile = ({ userToken, currentUser, setUserData, userData }) => {
             <div>
               <label htmlFor="willDeliver">Will you deliver it?</label>
               <select className="postBox" name="willDeliver">
-                <option value="optional"></option>
+                <option value={false}>No</option>
                 <option value={true}>Yes</option>
-                <option value=''>No</option>
-                </select>
+              </select>
             </div>
             <button name="Post" type="submit">
               Post
@@ -137,7 +96,7 @@ const Profile = ({ userToken, currentUser, setUserData, userData }) => {
         </form>
       </div>
 
-      {(userPosts && userPosts.length) ?  (
+      {userPosts && userPosts.length ? (
         userPosts.map((post, idx) => {
           return (
             <div key={`${idx}-${post.author}`} className="userPosts">
@@ -150,8 +109,10 @@ const Profile = ({ userToken, currentUser, setUserData, userData }) => {
               </span>
               <p>{post.description}</p>
               <p>Price: {post.price}</p>
-              <span><button>Edit</button><button>Delete</button></span>
-
+              <span>
+                <button>Edit</button>
+                <button>Delete</button>
+              </span>
             </div>
           );
         })
@@ -163,3 +124,9 @@ const Profile = ({ userToken, currentUser, setUserData, userData }) => {
 };
 
 export default Profile;
+
+// const allposts = await fectchAllPosts()
+// setAllPosts(allposts)
+// const [userPosts, userMessages] = await fetchUserData(userToken)
+// console.log(userPosts, 'what we want to map over')
+// setUserData(userPosts)

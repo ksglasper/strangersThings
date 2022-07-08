@@ -15,7 +15,6 @@ const App = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [userToken, setUserToken] = useState(getCurrentToken());
-  const [userData, setUserData] = useState([])
 
   useEffect(() => {
     fectchAllPosts()
@@ -34,14 +33,14 @@ const App = () => {
     <>
       <Router>
       <Header setCurrentUser={setCurrentUser}
-          currentUser={currentUser} setUserToken={setUserToken}/>
+          currentUser={currentUser} setUserToken={setUserToken} setAllPosts={setAllPosts}/>
         <Routes>
         
         <Route exact path={"/"} element={<Posts allPosts={allPosts} currentUser={currentUser}/>}></Route>
 
         <Route path={"/register"} element={<Register setCurrentUser={setCurrentUser} setUserToken={setUserToken}/>}></Route>
 
-        <Route path={"/profile"} element={<Profile userToken={userToken} currentUser={currentUser} userData={userData} setUserData={setUserData}/>}></Route>
+        <Route path={"/profile"} element={<Profile userToken={userToken} currentUser={currentUser} setAllPosts={setAllPosts}/>}></Route>
 
         
 

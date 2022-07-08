@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { clearCurrentUserAndToken } from "../auth";
 import { NavLink } from "react-router-dom";
 import LogIn from "./LogIn";
@@ -9,7 +9,8 @@ const Header = ({
   setCurrentUser,
   isLoggingIn,
   setIsLoggingIn,
-  setUserToken
+  setUserToken,
+  setAllPosts
 }) => {
   return (
     <>
