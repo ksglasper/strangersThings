@@ -1,6 +1,11 @@
-.post{
+.allposts{
     border: 2px solid black;
     margin-bottom: 5px;
+}
+
+.userPosts{
+    border: 2px solid black;
+    margin-bottom: 5px; 
 }
 
 #userRegistration{

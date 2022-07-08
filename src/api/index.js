@@ -28,9 +28,9 @@ export const fetchUserData = async (userToken) =>{
         }
     })
     const result = await response.json();
-    // console.log(result)
+    console.log(result)
 
-    const userData = [result.posts,result.messages]
+    const userData = [result.data.posts,result.data.messages]
     
     return userData;
   } catch (error) {
@@ -87,7 +87,7 @@ export const logInPerson = async (event) =>{
   
 }
 
-export const makePost = async (post) =>{
+export const makePost = async (post, userToken) =>{
   try {
     const response = await fetch(`${BASE_URL + cohortName}/posts/`, {
     method: "POST",
