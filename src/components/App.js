@@ -6,7 +6,7 @@ import {
   Routes,
 } from "react-router-dom";
 import { fectchAllPosts , fetchUserPosts } from "../api";
-import { Posts, Header, Register, Profile} from "./";
+import { Posts, Header, Register, Profile, Edit, Form} from "./";
 import { getCurrentUser, getCurrentToken} from "../auth";
 
 

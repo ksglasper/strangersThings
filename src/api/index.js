@@ -8,7 +8,6 @@ export const fectchAllPosts = async () => {
     const response = await fetch(`${BASE_URL + cohortName}posts/`);
     const result = await response.json();
     const postsData = result.data.posts
-    // console.log(postsData, 'GET DATA')
     
     return postsData;
   } catch (error) {
@@ -91,6 +90,47 @@ export const makePost = async (post, userToken) =>{
   try {
     const response = await fetch(`${BASE_URL + cohortName}posts/`, {
     method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`
+    },
+    body: JSON.stringify({
+      post
+    })})
+    
+    const result = await response.json();
+    console.log(result);
+     return result.data.post
+  
+  } catch (error) {
+    console.error(error)
+  }
+  
+}
+
+
+export const deletePost = async (postId, userToken) =>{
+  try {
+    const response = await fetch(`${BASE_URL + cohortName}posts/${postId}`, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`
+    },})
+    
+    const result = await response.json();
+    console.log(result);
+     return result
+  
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const editPost = async (post, postId, userToken) =>{
+  try {
+    const response = await fetch(`${BASE_URL + cohortName}posts/${postId}`, {
+    method: "PATCH",
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${userToken}`
