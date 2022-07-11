@@ -11,12 +11,11 @@ const Remove = ({postId, userToken, userPosts, setUserPosts, allPosts, setAllPos
     async function handleOnClick(event){
         event.preventDefault()
         console.log(userPosts, 'before delete')
-        let emptyObj = await deletePost(postId, userToken)
+        await deletePost(postId, userToken)
 
         if(allPosts){
             console.log(allPosts, 'before splice')
 
-            await allPosts.splice(idx, 1, emptyObj)
             allPosts.splice(idx, 1)
 
             console.log(allPosts, 'after splice')

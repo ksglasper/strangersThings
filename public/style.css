@@ -51,6 +51,12 @@
     text-align: center;
 }
 
+.message{
+    border: 2px solid black;
+    margin-bottom: 5px; 
+}
+
+
 /* #loading {
     position: fixed;
   

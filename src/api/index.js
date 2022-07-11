@@ -120,7 +120,7 @@ export const deletePost = async (postId, userToken) =>{
     
     const result = await response.json();
     console.log(result);
-     return {}
+     return result
   
   } catch (error) {
     console.error(error)
@@ -151,7 +151,7 @@ export const editPost = async (post, postId, userToken) =>{
 
 export const makeMessage = async (postId, userToken, message) =>{
   try {
-    const response = await fetch(`${BASE_URL + cohortName}posts/${postId}`, {
+    const response = await fetch(`${BASE_URL + cohortName}posts/${postId}/messages`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',

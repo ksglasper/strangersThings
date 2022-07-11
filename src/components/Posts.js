@@ -90,7 +90,11 @@ const Posts = ({
                         </>
                       </div>
                     ) : messagePostId === postId ? (
-                      <Message />
+                      <Message 
+                      postId={postId}
+                      userToken={userToken}
+                    
+                      />
                     ) : (
                       <div>
                         <button
