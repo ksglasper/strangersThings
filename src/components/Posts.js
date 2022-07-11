@@ -12,8 +12,10 @@ const Posts = ({
   setUserPosts,
   editPostId,
   setEditPostID,
+  setMessagePostId,
+  messagePostId
 }) => {
-  const [messagePostId, setMessagePostId] = useState(null);
+  
 
   return (
     <>
@@ -89,13 +91,13 @@ const Posts = ({
                           )}
                         </>
                       </div>
-                    ) : messagePostId === postId ? (
+                    ) : messagePostId === postId && currentUser? (
                       <Message 
                       postId={postId}
                       userToken={userToken}
                     
                       />
-                    ) : (
+                    ) : currentUser ?  (
                       <div>
                         <button
                           className="messageButton"
@@ -106,8 +108,9 @@ const Posts = ({
                         >
                           Message
                         </button>
-                      </div>
-                    )}
+                      </div> 
+                    ) : <></>
+                    }
                   </>
                 </div>
               ) : (

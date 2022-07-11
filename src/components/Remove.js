@@ -1,5 +1,5 @@
 import React from "react";
-import {deletePost, fetchUserData} from "../api"
+import {deletePost, fetchUserData, fectchAllPosts} from "../api"
 
 const Remove = ({postId, userToken, userPosts, setUserPosts, allPosts, setAllPosts, idx}) =>{
     async function handleOnClick2(event){
@@ -14,25 +14,14 @@ const Remove = ({postId, userToken, userPosts, setUserPosts, allPosts, setAllPos
         await deletePost(postId, userToken)
 
         if(allPosts){
-            console.log(allPosts, 'before splice')
-
-            allPosts.splice(idx, 1)
-
-            console.log(allPosts, 'after splice')
+            const updatedPosts = await fectchAllPosts()
           
-            await setAllPosts(allPosts);
+            setAllPosts(updatedPosts);
             
           }else{
-
-            // console.log(userPosts[idx], ' individual post before splice')
-            console.log(userPosts, 'after delete before splice')
-
-            // userPosts[idx].active = false
-            await userPosts.splice(idx, 1)
-
-            console.log(userPosts, 'after splice')
+            const updatedPosts = await fetchUserData(userToken)
           
-             await setUserPosts(userPosts);
+            setUserPosts(updatedPosts.posts);
           }
 
     }

@@ -10,18 +10,19 @@ const Header = ({
   isLoggingIn,
   setIsLoggingIn,
   setUserToken,
-  setAllPosts
+  setAllPosts,
+  setMessagePostId,
 }) => {
   return (
     <>
     <div id="navBar">
       <NavLink className={'navBar'} to={"/"}>Home</NavLink>
       {currentUser ? <NavLink className={'navBar'} to={"/Profile"} >Profile</NavLink> : <NavLink className={'navBar'} to={"/"} onClick={()=>{alert('Please log in to view')}} >Profile</NavLink> }
-      {currentUser ? <NavLink className={'navBar'} to={"/Posts"} >Posts</NavLink> : <NavLink className={'navBar'} to={"/"} onClick={()=>{alert('Please log in to view')}} >Posts</NavLink> }
       {currentUser ? <NavLink className={'navBar'} to={"/"} onClick={()=>{
         clearCurrentUserAndToken()
         setCurrentUser('')
         setUserToken('')
+        setMessagePostId(null)
       }}>Logout</NavLink> : <></>}
       </div>
       {currentUser ? <></> : <LogIn
