@@ -1,9 +1,13 @@
 import React from "react";
+import { makeMessage } from "../api";
+
+
 
 const Message = () =>{
     return(
         <>
-        Hello Again</>
+        Hello Again
+        </>
     )
 }
 

@@ -4,10 +4,8 @@ import Remove from "./Remove";
 import Form from "./Form";
 import Edit from "./Edit";
 
-const Profile = ({ userToken, currentUser }) => {
+const Profile = ({ userToken, currentUser, userPosts, setUserPosts, editPostId, setEditPostID }) => {
   const [userMessages, setUserMessages] = useState([]);
-  const [userPosts, setUserPosts] = useState([])
-  const [editPostId, setEditPostID] = useState(null)
 
   useEffect(() => {
     async function getUserData(){
@@ -61,7 +59,7 @@ const Profile = ({ userToken, currentUser }) => {
                         
                         
                         }}>Edit</button>
-                      <Remove postId={postId} userToken={userToken} setUserPosts={setUserPosts}/>
+                      <Remove postId={postId} idx={idx} userToken={userToken} userPosts={userPosts} setUserPosts={setUserPosts}/>
                     </span> 
                     }
                     </>

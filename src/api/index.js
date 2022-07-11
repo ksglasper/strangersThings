@@ -120,7 +120,7 @@ export const deletePost = async (postId, userToken) =>{
     
     const result = await response.json();
     console.log(result);
-     return result
+     return {}
   
   } catch (error) {
     console.error(error)
@@ -149,3 +149,25 @@ export const editPost = async (post, postId, userToken) =>{
   
 }
 
+export const makeMessage = async (postId, userToken, message) =>{
+  try {
+    const response = await fetch(`${BASE_URL + cohortName}posts/${postId}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${userToken}`
+    },
+    body: JSON.stringify({
+      message: {
+        content: message
+      }
+    })})
+    
+    const result = await response.json();
+    console.log(result);
+     return result.data.message
+  
+  } catch (error) {
+    console.error(error)
+  }
+}

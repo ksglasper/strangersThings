@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import { editPost, fetchUserData } from "../api";
+import { editPost } from "../api";
 
-const Edit = ({ postId, userToken, userPosts, setUserPosts, setEditPostID, postTitle, postDescription, postPrice, postLocation, postDelivery, idx}) => {
+const Edit = ({ postId, userToken, userPosts, setUserPosts, allPosts, setAllPosts, setEditPostID, postTitle, postDescription, postPrice, postLocation, postDelivery, idx}) => {
 const [title, setTitle] = useState(postTitle);
 const [description, setDescription] = useState(postDescription);
 const [price, setPrice] = useState(postPrice);
@@ -20,12 +20,29 @@ const handleSubmit = async (event)=>{
     };
 
     const newPost = await editPost(editPostObj, postId, userToken);
-    userPosts.splice(idx, 1, newPost)
+
+    if(allPosts){
+      console.log('this was clicked in home/posts')
+      allPosts.splice(idx, 1, newPost)
+    
+      setAllPosts(allPosts);
+      setEditPostID(null)
+      
+    }else{
+      console.log('this was clicked in profile')
+
+      userPosts.splice(idx, 1, newPost)
+    
+      setUserPosts(userPosts);
+      setEditPostID(null)
+    }
+    
+
+
+
     // console.log(userPosts)
     // console.log(idx)
     // console.log(userPosts.splice(idx, 1, newPost))
-    setUserPosts(userPosts);
-    setEditPostID(null)
     // console.log(userToken)
     // console.log(editPostObj, postId, userToken, 'this is what got sent')
 

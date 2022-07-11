@@ -15,6 +15,9 @@ const App = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [userToken, setUserToken] = useState(getCurrentToken());
+  const [userPosts, setUserPosts] = useState([])
+  const [editPostId, setEditPostID] = useState(null)
+
 
   useEffect(() => {
     fectchAllPosts()
@@ -36,11 +39,13 @@ const App = () => {
           currentUser={currentUser} setUserToken={setUserToken} setAllPosts={setAllPosts}/>
         <Routes>
         
-        <Route exact path={"/"} element={<Posts allPosts={allPosts} currentUser={currentUser}/>}></Route>
+        <Route exact path={"/"} element={<Posts allPosts={allPosts} userToken={userToken} currentUser={currentUser} setUserPosts={setUserPosts} setAllPosts={setAllPosts} editPostId={editPostId} setEditPostID={setEditPostID}/>}></Route>
+        <Route path={"/posts"} element={<Posts allPosts={allPosts} userToken={userToken} currentUser={currentUser} setUserPosts={setUserPosts} setAllPosts={setAllPosts} editPostId={editPostId} setEditPostID={setEditPostID}/>}></Route>
+
 
         <Route path={"/register"} element={<Register setCurrentUser={setCurrentUser} setUserToken={setUserToken}/>}></Route>
 
-        <Route path={"/profile"} element={<Profile userToken={userToken} currentUser={currentUser} setAllPosts={setAllPosts}/>}></Route>
+        <Route path={"/profile"} element={<Profile userToken={userToken} currentUser={currentUser}  userPosts={userPosts} setUserPosts={setUserPosts} editPostId={editPostId} setEditPostID={setEditPostID}/>}></Route>
 
         
 
