@@ -3,16 +3,21 @@ import { makeMessage } from "../api";
 
 
 
-const Message = ({postId, userToken}) =>{
+const Message = ({postId, userToken, setMessagePostId}) =>{
     const handleSubmit = async(event)=> {
         event.preventDefault()
         let message = event.target.message.value
-        message.length<500 ?
+        message.length < 500 ?
         makeMessage(postId, userToken, message) :
         alert('Too Many Characters')
-        console.log(message)
+
+
+    event.target.reset();
+    setMessagePostId(null)
+
     }
     return(
+        <span>
         <form onSubmit={handleSubmit}>
             
          <label htmlFor="Message">Message:</label>
@@ -24,6 +29,8 @@ const Message = ({postId, userToken}) =>{
             />
             <button name="Submit" type="submit">Submit</button>
         </form>
+        <button onClick={()=>{setMessagePostId(null)}}>Back</button>
+        </span>
     )
 }
 

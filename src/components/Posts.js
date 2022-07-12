@@ -3,6 +3,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import Remove from "./Remove";
 import Edit from "./Edit";
 import Message from "./Message";
+import Search from "./Search";
 
 const Posts = ({
   allPosts,
@@ -15,6 +16,9 @@ const Posts = ({
   setMessagePostId,
   messagePostId
 }) => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+
   
 
   return (
@@ -24,6 +28,7 @@ const Posts = ({
       ) : (
         <></>
       )}
+      <Search searchTearm={searchTerm} setSearchTerm={setSearchTerm}/>
       {allPosts && allPosts.length ? (
         allPosts.map((post, idx) => {
           let postId = post._id;
@@ -95,7 +100,7 @@ const Posts = ({
                       <Message 
                       postId={postId}
                       userToken={userToken}
-                    
+                      setMessagePostId={setMessagePostId}
                       />
                     ) : currentUser ?  (
                       <div>

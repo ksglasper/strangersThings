@@ -1,12 +1,4 @@
-.allposts{
-    border: 2px solid black;
-    margin-bottom: 5px;
-}
 
-.userPosts{
-    border: 2px solid black;
-    margin-bottom: 5px; 
-}
 
 #userRegistration{
     display: block;
@@ -51,9 +43,40 @@
     text-align: center;
 }
 
+#profileContainer{
+    display: flex;
+}
+
 .message{
     border: 2px solid black;
     margin-bottom: 5px; 
+    padding-left: 5px;
+
+}
+
+
+
+.userPosts{
+    border: 2px solid black;
+    margin-bottom: 5px; 
+    padding-left: 5px;
+}
+
+.allposts{
+    border: 2px solid black;
+    margin-bottom: 5px;
+}
+
+
+#allMessages{
+    width: 49%;
+
+}
+
+#allPosts{
+    width: 49%;
+    margin-right: 10px;
+
 }
 
 

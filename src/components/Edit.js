@@ -114,6 +114,8 @@ const handleSubmit = async (event)=>{
             </button>
           </div>
         </form>
+        <button onClick={()=>{setEditPostID(null)}}>Back</button>
+
     </>
   );
 };
