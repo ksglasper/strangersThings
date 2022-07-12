@@ -1,5 +1,4 @@
-import { fectchAllPosts } from "../api";
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import Remove from "./Remove";
 import Edit from "./Edit";
 import Message from "./Message";
@@ -10,16 +9,15 @@ const Posts = ({
   setAllPosts,
   currentUser,
   userToken,
-  setUserPosts,
   editPostId,
   setEditPostID,
   setMessagePostId,
-  messagePostId
+  messagePostId,
 }) => {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredPosts, setFilteredPosts] = useState(null);
 
-
-  
+  const postsToDisplay = filteredPosts ? filteredPosts : allPosts;
 
   return (
     <>
@@ -28,9 +26,14 @@ const Posts = ({
       ) : (
         <></>
       )}
-      <Search searchTearm={searchTerm} setSearchTerm={setSearchTerm}/>
-      {allPosts && allPosts.length ? (
-        allPosts.map((post, idx) => {
+      <Search
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        allPosts={allPosts}
+        setFilteredPosts={setFilteredPosts}
+      />
+      {postsToDisplay && postsToDisplay.length ? (
+        postsToDisplay.map((post, idx) => {
           let postId = post._id;
           let postTitle = post.title;
           let postDescription = post.description;
@@ -77,10 +80,8 @@ const Posts = ({
                               <button
                                 className="editButton"
                                 value={postId}
-                                onClick={(event) => {
+                                onClick={() => {
                                   setEditPostID(postId);
-                                  console.log(event.target.value);
-                                  console.log(idx);
                                 }}
                               >
                                 Edit
@@ -88,7 +89,6 @@ const Posts = ({
                               <Remove
                                 postId={postId}
                                 userToken={userToken}
-                                idx={idx}
                                 setAllPosts={setAllPosts}
                                 allPosts={allPosts}
                               />
@@ -96,13 +96,13 @@ const Posts = ({
                           )}
                         </>
                       </div>
-                    ) : messagePostId === postId && currentUser? (
-                      <Message 
-                      postId={postId}
-                      userToken={userToken}
-                      setMessagePostId={setMessagePostId}
+                    ) : messagePostId === postId && currentUser ? (
+                      <Message
+                        postId={postId}
+                        userToken={userToken}
+                        setMessagePostId={setMessagePostId}
                       />
-                    ) : currentUser ?  (
+                    ) : currentUser ? (
                       <div>
                         <button
                           className="messageButton"
@@ -113,9 +113,10 @@ const Posts = ({
                         >
                           Message
                         </button>
-                      </div> 
-                    ) : <></>
-                    }
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </>
                 </div>
               ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import { makePost } from "../api";
 
-const Form = ({ postId, userToken, setUserPosts, userPosts }) => {
+const Form = ({ userToken, setUserPosts, userPosts }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const location = event.target.location.value;

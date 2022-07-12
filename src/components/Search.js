@@ -1,21 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Search = ({ allPosts, setSearchTerm, searchTerm }) => {
+const Search = ({ setSearchTerm, searchTerm, allPosts, setFilteredPosts }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSearchTerm(event.target.searchBar.value);
-    console.log(searchTerm);
+
+    function postMatches(post, searchTerm) {
+      if (
+        post.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.author.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.price.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return true;
+      }
+    }
+    const filteredPosts = allPosts.filter((post) =>
+      postMatches(post, searchTerm)
+    );
+    setFilteredPosts(filteredPosts);
   };
   return (
     <form id="searchBar" onSubmit={handleSubmit}>
       <label htmlFor="search">Search:</label>
       <input
         type="text"
-        required
         name="searchBar"
         placeholder="Search all postings"
+        value={searchTerm}
+        onChange={(event) => setSearchTerm(event.target.value)}
       ></input>
-      <button name="searchBar" type="submit">
+      <button name="searchBarButton" type="submit">
         Search
       </button>
     </form>

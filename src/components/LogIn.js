@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { storeCurrentUser, storeUserToken } from "../auth";
 import { logInPerson } from "../api";
 
-const LogIn = ({ currentUser, setCurrentUser, setUserToken }) => {
+const LogIn = ({ setCurrentUser, setUserToken }) => {
     let navigate = useNavigate();
     function resetForm() {
         document.getElementById("userInput").reset();
@@ -17,14 +17,11 @@ const LogIn = ({ currentUser, setCurrentUser, setUserToken }) => {
           const result = await logInPerson(event);
           if (result.success) {
             const userToken = result.data.token
-            console.log(userToken)
           setCurrentUser(event.target.username.value);
           setUserToken(userToken);
           storeCurrentUser(event.target.username.value);
           storeUserToken(userToken);
           navigate("/")
-          console.log(event.target.username.value);
-          console.log(event.target.password.value);
           } else {
            alert(result.error.message);
            resetForm()

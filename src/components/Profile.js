@@ -32,108 +32,104 @@ const Profile = ({
         userPosts={userPosts}
       />
       <div id="profileContainer">
-      
+        <div id="allPosts">
+          {userPosts && userPosts.length ? (
+            userPosts.map((post, idx) => {
+              let postId = post._id;
+              let postTitle = post.title;
+              let postDescription = post.description;
+              let postPrice = post.price;
+              let postLocation = post.location;
+              let postDelivery = post.willDeliver;
 
-      <div id="allPosts">
-        {userPosts && userPosts.length ? (
-          userPosts.map((post, idx) => {
-            let postId = post._id;
-            let postTitle = post.title;
-            let postDescription = post.description;
-            let postPrice = post.price;
-            let postLocation = post.location;
-            let postDelivery = post.willDeliver;
-
-            return (
-              <Fragment key={`${idx}-${post.author}`}>
-                {post.active ? (
-                  <div className="userPosts">
-                    <h3 style={{paddingBottom: -5 }}>{postTitle}</h3>
-                    <h4 style={{paddingTop: 0 }}>Posted by: {currentUser}</h4>
-                    <span>
-                      {postLocation === "[On Request]"
-                        ? null
-                        : `Location: ${postLocation}`}
-                    </span>
-                    <p>{postDescription}</p>
-                    <p>Price: {postPrice}</p>
-                    <span>
-                      {postDelivery
-                        ? `Will deliver?: Yes`
-                        : `Will deliver?: No`}
-                    </span>
-                    <div>
-                      <>
-                        {editPostId === postId ? (
-                          <Edit
-                            setEditPostID={setEditPostID}
-                            postId={postId}
-                            postTitle={postTitle}
-                            postDescription={postDescription}
-                            postPrice={postPrice}
-                            postLocation={postLocation}
-                            postDelivery={postDelivery}
-                            setUserPosts={setUserPosts}
-                            userPosts={userPosts}
-                            userToken={userToken}
-                            idx={idx}
-                          />
-                        ) : (
-                          <span>
-                            <button
-                              className="editButton"
-                              value={postId}
-                              onClick={(event) => {
-                                setEditPostID(postId);
-                                console.log(event.target.value);
-                                console.log(idx);
-                              }}
-                            >
-                              Edit
-                            </button>
-                            <Remove
+              return (
+                <Fragment key={`${idx}-${post.author}`}>
+                  {post.active ? (
+                    <div className="userPosts">
+                      <h3 style={{ paddingBottom: -5 }}>{postTitle}</h3>
+                      <h4 style={{ paddingTop: 0 }}>
+                        Posted by: {currentUser}
+                      </h4>
+                      <span>
+                        {postLocation === "[On Request]"
+                          ? null
+                          : `Location: ${postLocation}`}
+                      </span>
+                      <p>{postDescription}</p>
+                      <p>Price: {postPrice}</p>
+                      <span>
+                        {postDelivery
+                          ? `Will deliver?: Yes`
+                          : `Will deliver?: No`}
+                      </span>
+                      <div>
+                        <>
+                          {editPostId === postId ? (
+                            <Edit
+                              setEditPostID={setEditPostID}
                               postId={postId}
-                              idx={idx}
-                              userToken={userToken}
-                              userPosts={userPosts}
+                              postTitle={postTitle}
+                              postDescription={postDescription}
+                              postPrice={postPrice}
+                              postLocation={postLocation}
+                              postDelivery={postDelivery}
                               setUserPosts={setUserPosts}
+                              userPosts={userPosts}
+                              userToken={userToken}
+                              idx={idx}
                             />
-                          </span>
-                        )}
-                      </>
+                          ) : (
+                            <span>
+                              <button
+                                className="editButton"
+                                value={postId}
+                                onClick={() => {
+                                  setEditPostID(postId);
+                                }}
+                              >
+                                Edit
+                              </button>
+                              <Remove
+                                postId={postId}
+                                userToken={userToken}
+                                setUserPosts={setUserPosts}
+                              />
+                            </span>
+                          )}
+                        </>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <></>
-                )}
-              </Fragment>
-            );
-          })
-        ) : (
-          <>Post Something!</>
-        )}
-      </div>
-      <div id="allMessages">
-        {userMessages && userMessages.length ? (
-          userMessages.map((post, idx) => {
-            let title = post.post.title;
-            let messangerName = post.fromUser.username;
-            let messageContent = post.content;
+                  ) : (
+                    <></>
+                  )}
+                </Fragment>
+              );
+            })
+          ) : (
+            <>Post Something!</>
+          )}
+        </div>
+        <div id="allMessages">
+          {userMessages && userMessages.length ? (
+            userMessages.map((post, idx) => {
+              let title = post.post.title;
+              let messangerName = post.fromUser.username;
+              let messageContent = post.content;
 
-            return (
-              <Fragment key={`${idx}-${post._id}`}>
-                <div className="message">
-                  <h3>Message From: {messangerName}</h3>
-                  <h4>{title}</h4>
-                  <p>{messageContent}</p>
-                </div>
-              </Fragment>
-            );
-          })
-        ) : (
-          <></>
-        )}
-      </div>
+              return (
+                <Fragment key={`${idx}-${post._id}`}>
+                  <div className="message">
+                    <h3>Message From: {messangerName}</h3>
+                    <h4>{title}</h4>
+                    <p>{messageContent}</p>
+                  </div>
+                </Fragment>
+              );
+            })
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </>
   );
