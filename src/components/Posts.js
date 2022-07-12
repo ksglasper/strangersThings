@@ -22,7 +22,7 @@ const Posts = ({
   return (
     <>
       {currentUser ? (
-        <h1 id="welcomeHeadline">Welcome back, {currentUser}!</h1>
+        <h1 className="welcomeHeadline">Welcome back, {currentUser}!</h1>
       ) : (
         <></>
       )}
@@ -32,6 +32,7 @@ const Posts = ({
         allPosts={allPosts}
         setFilteredPosts={setFilteredPosts}
       />
+      <div id="postBox">
       {postsToDisplay && postsToDisplay.length ? (
         postsToDisplay.map((post, idx) => {
           let postId = post._id;
@@ -45,17 +46,17 @@ const Posts = ({
             <Fragment key={`${idx}-${post.author}`}>
               {post.active ? (
                 <div className="userPosts">
-                  <h3>{postTitle}</h3>
-                  <h4>Posted by: {post.author.username}</h4>
+                  <h2>{postTitle}</h2>
+                  <h3>Posted by: {post.author.username}</h3>
                   <span>
                     {postLocation === "[On Request]"
                       ? null
-                      : `Location: ${postLocation}`}
+                      : <><b>Location:</b> {postLocation}</>}
                   </span>
-                  <p>{postDescription}</p>
-                  <p>Price: {postPrice}</p>
+                  <p> <b>Description:</b> {postDescription}</p>
+                  <p> <b>Price:</b> {postPrice}</p>
                   <span>
-                    {postDelivery ? `Will deliver?: Yes` : `Will deliver?: No`}
+                    {postDelivery ? <><b> Will deliver?: </b> Yes</> : <><b>Will deliver?:</b>No</>}
                   </span>
                   <>
                     {post.author.username === currentUser ? (
@@ -103,7 +104,7 @@ const Posts = ({
                         setMessagePostId={setMessagePostId}
                       />
                     ) : currentUser ? (
-                      <div>
+                      <div className="postMessageButton">
                         <button
                           className="messageButton"
                           value={postId}
@@ -128,6 +129,7 @@ const Posts = ({
       ) : (
         <></>
       )}
+      </div>
     </>
   );
 };

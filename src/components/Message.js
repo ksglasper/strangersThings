@@ -17,7 +17,7 @@ const Message = ({ postId, userToken, setMessagePostId }) => {
       <form onSubmit={handleSubmit}>
         <label htmlFor="Message">Message:</label>
         <input
-          className="inputBox"
+          className="messageBox"
           type="text"
           required
           name="message"

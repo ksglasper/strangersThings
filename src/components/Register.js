@@ -44,7 +44,7 @@ const Register = ({ setCurrentUser, setUserToken }) => {
           <div>
             <label htmlFor="username">Username:</label>
             <input
-              className="inputBox"
+              className="inputBox1"
               type="text"
               required
               name="username"
@@ -54,7 +54,7 @@ const Register = ({ setCurrentUser, setUserToken }) => {
           <div>
             <label htmlFor="password">Password:</label>
             <input
-              className="inputBox"
+              className="inputBox2"
               type="text"
               required
               name="password"
@@ -64,7 +64,7 @@ const Register = ({ setCurrentUser, setUserToken }) => {
           <div>
             <label htmlFor="passwordConfirmation">Confirm Password:</label>
             <input
-              className="inputBox"
+              className="inputBox3"
               type="text"
               required
               name="passwordConfirmation"

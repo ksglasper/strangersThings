@@ -22,12 +22,13 @@ const Form = ({ userToken, setUserPosts, userPosts }) => {
   return (
     <>
       <div>
+        <h2 className="newPost">New Post!</h2>
         <form id="newPost" onSubmit={handleSubmit}>
           <div id="userPostForm">
             <div>
               <label htmlFor="title">Title:</label>
               <input
-                className="postBox"
+                className="postBox1"
                 type="text"
                 required
                 name="title"
@@ -37,7 +38,7 @@ const Form = ({ userToken, setUserPosts, userPosts }) => {
             <div>
               <label htmlFor="description">Description:</label>
               <input
-                className="postBox"
+                className="postBox2"
                 type="text"
                 required
                 name="description"
@@ -47,7 +48,7 @@ const Form = ({ userToken, setUserPosts, userPosts }) => {
             <div>
               <label htmlFor="price">Price:</label>
               <input
-                className="postBox"
+                className="postBox3"
                 type="text"
                 required
                 name="price"
@@ -57,7 +58,7 @@ const Form = ({ userToken, setUserPosts, userPosts }) => {
             <div>
               <label htmlFor="location">Location:</label>
               <input
-                className="postBox"
+                className="postBox4"
                 type="text"
                 name="location"
                 placeholder="Optional"

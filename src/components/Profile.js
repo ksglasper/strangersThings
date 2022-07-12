@@ -25,12 +25,12 @@ const Profile = ({
 
   return (
     <>
-      <h1>Hello {currentUser}!</h1>
-      <Form
+      <h1 className="welcomeHeadline">Hello, {currentUser}!</h1>
+      <div className="form"> <Form
         userToken={userToken}
         setUserPosts={setUserPosts}
         userPosts={userPosts}
-      />
+      /></div>
       <div id="profileContainer">
         <div id="allPosts">
           {userPosts && userPosts.length ? (
@@ -45,22 +45,21 @@ const Profile = ({
               return (
                 <Fragment key={`${idx}-${post.author}`}>
                   {post.active ? (
-                    <div className="userPosts">
-                      <h3 style={{ paddingBottom: -5 }}>{postTitle}</h3>
-                      <h4 style={{ paddingTop: 0 }}>
+                    <div className="profilePosts">
+                      <h2 style={{ paddingBottom: -5 }}>{postTitle}</h2>
+                      <h3 style={{ paddingTop: 0 }}>
                         Posted by: {currentUser}
-                      </h4>
+                      </h3>
                       <span>
                         {postLocation === "[On Request]"
                           ? null
-                          : `Location: ${postLocation}`}
+                          : <><b>Location:</b> {postLocation}</>}
                       </span>
-                      <p>{postDescription}</p>
-                      <p>Price: {postPrice}</p>
+                      <p><b>Description:</b>{postDescription}</p>
+                      <p><b>Price:</b> {postPrice}</p>
                       <span>
                         {postDelivery
-                          ? `Will deliver?: Yes`
-                          : `Will deliver?: No`}
+                          ? <><b> Will deliver?: </b> Yes</> : <><b>Will deliver?:</b>No</>}
                       </span>
                       <div>
                         <>
@@ -79,7 +78,7 @@ const Profile = ({
                               idx={idx}
                             />
                           ) : (
-                            <span>
+                            <p className="editRemoveButton">
                               <button
                                 className="editButton"
                                 value={postId}
@@ -94,7 +93,7 @@ const Profile = ({
                                 userToken={userToken}
                                 setUserPosts={setUserPosts}
                               />
-                            </span>
+                            </p>
                           )}
                         </>
                       </div>
@@ -119,8 +118,8 @@ const Profile = ({
               return (
                 <Fragment key={`${idx}-${post._id}`}>
                   <div className="message">
-                    <h3>Message From: {messangerName}</h3>
-                    <h4>{title}</h4>
+                    <h2>Message From: {messangerName}</h2>
+                    <h3>Re: {title}</h3>
                     <p>{messageContent}</p>
                   </div>
                 </Fragment>
